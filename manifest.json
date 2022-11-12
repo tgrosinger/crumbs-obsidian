@@ -1,0 +1,10 @@
+{
+	"id": "crumbs-obsidian",
+	"name": "Crumbs",
+	"version": "0.0.1",
+	"minAppVersion": "1.0.0",
+	"description": "Adds some crumbs to your notes",
+	"author": "Tony Grosinger",
+	"authorUrl": "https://grosinger.net",
+	"isDesktopOnly": true
+}
