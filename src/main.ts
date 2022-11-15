@@ -1,4 +1,4 @@
-import { MarkdownView, Plugin } from 'obsidian';
+import { MarkdownRenderChild, MarkdownView, Plugin } from 'obsidian';
 import { populateCrumbsContainer } from './breadcrumbs';
 
 const breadcrumbClass = 'crumbs-container';
@@ -45,8 +45,10 @@ const drawTrail = async (plugin: CrumbsPlugin) => {
 	const allFiles = plugin.app.vault.getMarkdownFiles();
 
 	const trailDiv = createDiv({ cls: breadcrumbClass });
+	const component = new MarkdownRenderChild(trailDiv);
+	component.load();
 
-	await populateCrumbsContainer(trailDiv, file, allFiles);
+	await populateCrumbsContainer(component, file, allFiles);
 
 	if (mode === 'preview') {
 		view.querySelector('div.markdown-preview-sizer')?.before(trailDiv);

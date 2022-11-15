@@ -1,4 +1,9 @@
-import { Component, MarkdownRenderer, TFile } from 'obsidian';
+import {
+	Component,
+	MarkdownRenderChild,
+	MarkdownRenderer,
+	TFile,
+} from 'obsidian';
 import { VirtualFile } from './file';
 
 // TODO: Right click on a segment in the crumbs to rename it.
@@ -36,6 +41,7 @@ const makeCrumb = async (
 	displayName: string,
 	displayLink: string | undefined,
 	listFiles: VirtualFile[],
+	component: Component,
 ): Promise<HTMLElement> => {
 	if (listFiles.length === 0) {
 		const el = createDiv({ cls: 'crumbs-breadcrumb' });
@@ -65,12 +71,19 @@ const makeCrumb = async (
 };
 
 export const populateCrumbsContainer = async (
-	el: HTMLDivElement,
+	component: MarkdownRenderChild,
 	currentFile: TFile,
 	allFiles: TFile[],
 ) => {
 	const currentVirtualFile = new VirtualFile(currentFile.basename);
 	const rootName = currentVirtualFile.getRootName();
+
+	const linkText = app.metadataCache.fileToLinktext(
+		allFiles[0],
+		currentVirtualFile.name,
+		true,
+	);
+	console.log(linkText);
 
 	// Going forward, only consider the pages in pagesTopLevel, to avoid
 	// searching through more of the vault files than necessary.
@@ -95,14 +108,21 @@ export const populateCrumbsContainer = async (
 				file.getShortName(),
 				file.getPath(),
 				file.getSiblings(virtualFilesTopLevel),
+				component,
 			);
 		}),
 	);
 	breadcrumbs.push(
-		await makeCrumb(currentFile.basename, 'Children', undefined, children),
+		await makeCrumb(
+			currentFile.basename,
+			'Children',
+			undefined,
+			children,
+			component,
+		),
 	);
 
 	breadcrumbs.forEach((bc) => {
-		el.appendChild(bc);
+		component.containerEl.appendChild(bc);
 	});
 };
