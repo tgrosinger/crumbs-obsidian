@@ -1,89 +1,23 @@
-import {
-	Component,
-	MarkdownRenderChild,
-	MarkdownRenderer,
-	TFile,
-} from 'obsidian';
+import type { TFile } from 'obsidian';
 import { VirtualFile } from './file';
+import Crumbs from './components/Crumbs.svelte';
+
+export interface CrumbLevel {
+	displayName: string;
+	displayLink: string | undefined;
+	listFiles: VirtualFile[];
+	isCurrentFile: boolean;
+}
 
 // TODO: Right click on a segment in the crumbs to rename it.
 
-const makeLink = async (
-	currentFile: string,
-	displayName: string,
-	displayLink: string | undefined,
+export const populateCrumbsContainer = (
 	container: HTMLElement,
-) => {
-	if (!displayLink) {
-		container.setText(displayName);
-		return;
-	}
-
-	let subcontainer = container.createSpan();
-	await MarkdownRenderer.renderMarkdown(
-		`[[${displayLink}|${displayName}]]`,
-		subcontainer,
-		currentFile,
-		null as unknown as Component,
-	);
-
-	let paragraph = subcontainer.querySelector(':scope > p');
-	if (subcontainer.children.length == 1 && paragraph) {
-		while (paragraph.firstChild) {
-			subcontainer.appendChild(paragraph.firstChild);
-		}
-		subcontainer.removeChild(paragraph);
-	}
-};
-
-const makeCrumb = async (
-	currentFile: string,
-	displayName: string,
-	displayLink: string | undefined,
-	listFiles: VirtualFile[],
-	component: Component,
-): Promise<HTMLElement> => {
-	if (listFiles.length === 0) {
-		const el = createDiv({ cls: 'crumbs-breadcrumb' });
-		await makeLink(currentFile, displayName, displayLink, el);
-		return el;
-	}
-
-	const summary = createEl('summary');
-	await makeLink(currentFile, displayName, displayLink, summary);
-
-	const container = createDiv({ cls: 'crumbs-list' });
-	const listMD = listFiles
-		.map((f) => `- [[${f.name}|${f.getShortName()}]]`)
-		.join('\n');
-	await MarkdownRenderer.renderMarkdown(
-		listMD,
-		container,
-		currentFile,
-		null as unknown as Component,
-	);
-
-	const details = createEl('details', { cls: 'crumbs-breadcrumb' });
-	details.appendChild(summary);
-	details.appendChild(container);
-
-	return details;
-};
-
-export const populateCrumbsContainer = async (
-	component: MarkdownRenderChild,
 	currentFile: TFile,
 	allFiles: TFile[],
-) => {
+): void => {
 	const currentVirtualFile = new VirtualFile(currentFile.basename);
 	const rootName = currentVirtualFile.getRootName();
-
-	const linkText = app.metadataCache.fileToLinktext(
-		allFiles[0],
-		currentVirtualFile.name,
-		true,
-	);
-	console.log(linkText);
 
 	// Going forward, only consider the pages in pagesTopLevel, to avoid
 	// searching through more of the vault files than necessary.
@@ -95,34 +29,35 @@ export const populateCrumbsContainer = async (
 	const filenameParts = currentFile.basename.split('.');
 	const children = currentVirtualFile.getChildren(virtualFilesTopLevel);
 
-	if (filenameParts.length === 0 && children.length === 0) {
+	if (filenameParts.length === 1 && children.length === 0) {
 		return;
 	}
 
-	const breadcrumbs = await Promise.all(
-		filenameParts.map(async (_, i): Promise<HTMLElement> => {
-			const fullName = filenameParts.slice(0, i + 1).join('.');
-			const file = new VirtualFile(fullName);
-			return await makeCrumb(
-				currentFile.basename,
-				file.getShortName(),
-				file.getPath(),
-				file.getSiblings(virtualFilesTopLevel),
-				component,
-			);
-		}),
-	);
-	breadcrumbs.push(
-		await makeCrumb(
-			currentFile.basename,
-			'Children',
-			undefined,
-			children,
-			component,
-		),
-	);
+	const crumbs = filenameParts.map((_, i): CrumbLevel => {
+		const fullName = filenameParts.slice(0, i + 1).join('.');
+		const file = new VirtualFile(fullName);
 
-	breadcrumbs.forEach((bc) => {
-		component.containerEl.appendChild(bc);
+		return {
+			displayName: file.getShortName(),
+			displayLink: file.name,
+			listFiles: file.getSiblings(virtualFilesTopLevel),
+			isCurrentFile: file.name === currentVirtualFile.name,
+		};
+	});
+
+	if (children.length > 0) {
+		crumbs.push({
+			displayName: 'Children',
+			displayLink: undefined,
+			listFiles: children,
+			isCurrentFile: false,
+		});
+	}
+
+	new Crumbs({
+		target: container,
+		props: {
+			crumbs,
+		},
 	});
 };

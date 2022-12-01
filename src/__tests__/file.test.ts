@@ -137,6 +137,14 @@ describe('getSiblings', () => {
 		const expected = new VirtualFile('one.two-a');
 		expect(f.getSiblings(input)).toEqual([expected]);
 	});
+
+	test('similar name with spaces', () => {
+		const f = new VirtualFile('one.two');
+		const sib1 = new VirtualFile('one.two-a');
+		const notSib = new VirtualFile('one two');
+		const input = [f, sib1, notSib];
+		expect(f.getSiblings(input)).toEqual([sib1]);
+	});
 });
 
 describe('getChildren', () => {

@@ -1,6 +1,6 @@
 export class VirtualFile {
 	public name: string;
-	private nameParts: string[];
+	private readonly nameParts: string[];
 
 	constructor(name: string) {
 		this.name = name;

@@ -1,10 +1,10 @@
-import { MarkdownRenderChild, MarkdownView, Plugin } from 'obsidian';
+import { MarkdownView, Plugin } from 'obsidian';
 import { populateCrumbsContainer } from './breadcrumbs';
 
 const breadcrumbClass = 'crumbs-container';
 
 export default class CrumbsPlugin extends Plugin {
-	async onload() {
+	public async onload(): Promise<void> {
 		app.workspace.onLayoutReady(async () => {
 			await drawTrail(this);
 
@@ -16,10 +16,19 @@ export default class CrumbsPlugin extends Plugin {
 		});
 	}
 
-	onunload() {}
+	public onunload(): void {
+		const activeMDView = app.workspace.getActiveViewOfType(MarkdownView);
+		if (!activeMDView) {
+			return;
+		}
+
+		activeMDView.containerEl
+			.querySelectorAll(`.${breadcrumbClass}`)
+			?.forEach((el) => el.remove());
+	}
 }
 
-const drawTrail = async (plugin: CrumbsPlugin) => {
+const drawTrail = async (plugin: CrumbsPlugin): Promise<void> => {
 	const activeMDView = app.workspace.getActiveViewOfType(MarkdownView);
 	if (!activeMDView) {
 		return;
@@ -45,10 +54,7 @@ const drawTrail = async (plugin: CrumbsPlugin) => {
 	const allFiles = plugin.app.vault.getMarkdownFiles();
 
 	const trailDiv = createDiv({ cls: breadcrumbClass });
-	const component = new MarkdownRenderChild(trailDiv);
-	component.load();
-
-	await populateCrumbsContainer(component, file, allFiles);
+	populateCrumbsContainer(trailDiv, file, allFiles);
 
 	if (mode === 'preview') {
 		view.querySelector('div.markdown-preview-sizer')?.before(trailDiv);
