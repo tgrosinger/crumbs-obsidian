@@ -1,6 +1,8 @@
 import esbuild from "esbuild";
 import process from "process";
-import builtins from 'builtin-modules'
+import builtins from 'builtin-modules';
+import sveltePlugin from "esbuild-svelte";
+import sveltePreprocess from "svelte-preprocess";
 
 const banner =
 `/*
@@ -16,6 +18,7 @@ esbuild.build({
 		js: banner,
 	},
 	entryPoints: ['src/main.ts'],
+	mainFields: ["svelte", "browser", "module", "main"],
 	bundle: true,
 	external: [
 		'obsidian',
@@ -33,6 +36,12 @@ esbuild.build({
 		'@lezer/lr',
 		...builtins],
 	format: 'cjs',
+	plugins: [
+      sveltePlugin({
+        compilerOptions: { css: true },
+        preprocess: sveltePreprocess(),
+      }),
+    ],
 	watch: !prod,
 	target: 'es2018',
 	logLevel: "info",
