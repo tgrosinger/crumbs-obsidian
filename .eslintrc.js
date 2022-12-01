@@ -129,21 +129,6 @@ module.exports = {
     "prefer-object-spread": "error",
     "prefer-rest-params": "error",
     radix: "error",
-    "simple-import-sort/sort": [
-      "error",
-      {
-        groups: [
-          // Side effect imports (e.g. `import 'foo';`)
-          ["^\\u0000"],
-          // Third-party code
-          [
-            "^(@susisu/mte-kernel,obsidian)(/.*|$)",
-          ],
-          // Our intra-package imports
-          ["(?<!\\.scss)$"],
-        ],
-      },
-    ],
     "spaced-comment": [
       "error",
       "always",
