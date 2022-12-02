@@ -2,7 +2,7 @@
 
 Adds breadcrumb navigation in Obsidian.
 
-## Screenshots
+![screencast](https://raw.githubusercontent.com/tgrosinger/crumbs-obsidian/main/resources/screencast.gif)
 
 ## Pricing
 
