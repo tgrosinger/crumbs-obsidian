@@ -6,5 +6,6 @@
 	"description": "Breadcrumb navigation in Obsidian",
 	"author": "Tony Grosinger",
 	"authorUrl": "https://grosinger.net",
-	"isDesktopOnly": true
+	"isDesktopOnly": true,
+	"donation": "https://buymeacoffee.com/tgrosinger"
 }
