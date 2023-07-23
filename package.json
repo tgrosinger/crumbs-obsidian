@@ -1,6 +1,6 @@
 {
 	"name": "crumbs-obsidian",
-	"version": "0.1.0",
+	"version": "0.1.2",
 	"description": "Breadcrumb navigation in Obsidian",
 	"main": "main.js",
 	"scripts": {
