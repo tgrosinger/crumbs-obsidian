@@ -1,11 +1,16 @@
 {
 	"id": "crumbs-obsidian",
 	"name": "Crumbs",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"minAppVersion": "1.0.0",
 	"description": "Breadcrumb navigation in Obsidian",
 	"author": "Tony Grosinger",
 	"authorUrl": "https://grosinger.net",
+	"fundingUrl": {
+		"Github Sponsor": "https://github.com/sponsors/tgrosinger",
+		"Buy me a Coffee": "https://buymeacoffee.com/tgrosinger",
+		"Paypal": "https://paypal.me/tgrosinger"
+	},
 	"isDesktopOnly": true,
 	"donation": "https://buymeacoffee.com/tgrosinger"
 }
