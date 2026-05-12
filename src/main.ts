@@ -5,11 +5,11 @@ const breadcrumbClass = 'crumbs-container';
 
 export default class CrumbsPlugin extends Plugin {
 	public async onload(): Promise<void> {
-		app.workspace.onLayoutReady(async () => {
+		this.app.workspace.onLayoutReady(async () => {
 			await drawTrail(this);
 
 			this.registerEvent(
-				app.workspace.on('file-open', async () => {
+				this.app.workspace.on('file-open', async () => {
 					await drawTrail(this);
 				}),
 			);
@@ -17,26 +17,26 @@ export default class CrumbsPlugin extends Plugin {
 	}
 
 	public onunload(): void {
-		const activeMDView = app.workspace.getActiveViewOfType(MarkdownView);
+		const activeMDView = this.app.workspace.getActiveViewOfType(MarkdownView);
 		if (!activeMDView) {
 			return;
 		}
 
 		activeMDView.containerEl
 			.querySelectorAll(`.${breadcrumbClass}`)
-			?.forEach((el) => el.remove());
+			?.forEach((el: Element) => el.remove());
 	}
 }
 
 const drawTrail = async (plugin: CrumbsPlugin): Promise<void> => {
-	const activeMDView = app.workspace.getActiveViewOfType(MarkdownView);
+	const activeMDView = plugin.app.workspace.getActiveViewOfType(MarkdownView);
 	if (!activeMDView) {
 		return;
 	}
 
 	activeMDView.containerEl
 		.querySelectorAll(`.${breadcrumbClass}`)
-		?.forEach((el) => el.remove());
+		?.forEach((el: Element) => el.remove());
 
 	const mode = activeMDView.getMode();
 	const view =
@@ -51,6 +51,9 @@ const drawTrail = async (plugin: CrumbsPlugin): Promise<void> => {
 	}
 
 	const { file } = activeMDView;
+	if (!file) {
+		return;
+	}
 	const allFiles = plugin.app.vault.getMarkdownFiles();
 
 	const trailDiv = createDiv({ cls: breadcrumbClass });
