@@ -4,16 +4,23 @@
 	export let display: string;
 	export let href: string | undefined;
 	export let isCurrentFile: boolean;
+
+	const onClick = async (e: MouseEvent): Promise<void> => {
+		e.preventDefault();
+		if (href) {
+			await openOrSwitch(href, e);
+		}
+	};
 </script>
 
 {#if href && !isCurrentFile}
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<span
+	<a
 		class="internal-link crumbs-link"
-		on:click={async (e) => await openOrSwitch(href, e)}
+		href={href}
+		on:click={onClick}
 	>
 		{display}
-	</span>
+	</a>
 {:else}
 	<span>{display}</span>
 {/if}
