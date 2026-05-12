@@ -63,7 +63,7 @@ describe('getParent', () => {
 	test('when root file', () => {
 		const input = new VirtualFile('root');
 		const result = input.getParent();
-		expect(result).toBeUndefined;
+		expect(result).toBeUndefined();
 	});
 
 	test('when two degrees', () => {
@@ -84,12 +84,12 @@ describe('getParent', () => {
 describe('isRoot', () => {
 	test('when root file', () => {
 		const input = new VirtualFile('root');
-		expect(input.isRoot()).toBeTruthy;
+		expect(input.isRoot()).toBeTruthy();
 	});
 
 	test('when not root file', () => {
 		const input = new VirtualFile('root.first');
-		expect(input.isRoot()).toBeFalsy;
+		expect(input.isRoot()).toBeFalsy();
 	});
 });
 
