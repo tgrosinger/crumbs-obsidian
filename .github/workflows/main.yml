@@ -25,7 +25,7 @@ jobs:
         run: pnpm run build
 
       - name: Run ESLint
-        run: pnpm run eslint
+        run: pnpm run lint
 
       - name: Run tests
         run: pnpm run test
