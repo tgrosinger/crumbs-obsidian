@@ -56,6 +56,7 @@ export class VirtualFile {
 		}
 
 		const currentDegree = this.getDegree();
+		const parentPrefix = commonParent.name + '.';
 
 		return allFiles
 			.map((f) => f.truncateToDegree(currentDegree))
@@ -63,7 +64,7 @@ export class VirtualFile {
 				(n) =>
 					n !== this.name &&
 					n !== commonParent.name &&
-					n.startsWith(commonParent.name),
+					n.startsWith(parentPrefix),
 			)
 			.filter((n, i, arr) => arr.indexOf(n) === i)
 			.map((n) => new VirtualFile(n));
@@ -71,9 +72,10 @@ export class VirtualFile {
 
 	public getChildren(allFiles: VirtualFile[]): VirtualFile[] {
 		const targetDegree = this.getDegree() + 1;
+		const childPrefix = this.name + '.';
 		return allFiles
 			.map((f) => f.truncateToDegree(targetDegree))
-			.filter((n) => n.startsWith(this.name) && n !== this.name)
+			.filter((n) => n.startsWith(childPrefix))
 			.filter((n, i, arr) => arr.indexOf(n) === i)
 			.map((n) => new VirtualFile(n));
 	}
