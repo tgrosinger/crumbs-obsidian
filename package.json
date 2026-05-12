@@ -13,6 +13,7 @@
 	"keywords": [],
 	"author": "",
 	"license": "MIT",
+	"packageManager": "pnpm@10.20.0",
 	"devDependencies": {
 		"@eslint/js": "^9.39.4",
 		"@types/jest": "^29.2.2",
@@ -35,5 +36,14 @@
 		"@tsconfig/svelte": "^5.0.8",
 		"obsidian-community-lib": "^2.0.2",
 		"svelte": "^4.2.20"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild",
+			"svelte-preprocess"
+		],
+		"ignoredBuiltDependencies": [
+			"core-js"
+		]
 	}
 }

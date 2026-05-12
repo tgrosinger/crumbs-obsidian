@@ -1,5 +1,0 @@
-allowBuilds:
-  esbuild: true
-  svelte-preprocess: true
-  '@parcel/watcher': false
-  core-js: false
