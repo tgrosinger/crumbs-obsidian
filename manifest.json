@@ -1,7 +1,7 @@
 {
 	"id": "crumbs-obsidian",
 	"name": "Crumbs",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"minAppVersion": "1.0.0",
 	"description": "Breadcrumb navigation in Obsidian",
 	"author": "Tony Grosinger",
