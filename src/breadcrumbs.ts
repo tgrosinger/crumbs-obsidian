@@ -1,4 +1,5 @@
 import type { TFile } from 'obsidian';
+import { mount } from 'svelte';
 import { VirtualFile } from './file';
 import Crumbs from './components/Crumbs.svelte';
 
@@ -54,10 +55,8 @@ export const populateCrumbsContainer = (
 		});
 	}
 
-	new Crumbs({
+	mount(Crumbs, {
 		target: container,
-		props: {
-			crumbs,
-		},
+		props: { crumbs },
 	});
 };
