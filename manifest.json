@@ -3,7 +3,7 @@
 	"name": "Crumbs",
 	"version": "0.2.0",
 	"minAppVersion": "1.0.0",
-	"description": "Breadcrumb navigation in Obsidian",
+	"description": "Navigate files using breadcrumbs.",
 	"author": "Tony Grosinger",
 	"authorUrl": "https://grosinger.net",
 	"fundingUrl": {
@@ -11,6 +11,5 @@
 		"Buy me a Coffee": "https://buymeacoffee.com/tgrosinger",
 		"Paypal": "https://paypal.me/tgrosinger"
 	},
-	"isDesktopOnly": true,
-	"donation": "https://buymeacoffee.com/tgrosinger"
+	"isDesktopOnly": true
 }
