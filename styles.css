@@ -1,0 +1,86 @@
+.crumbs-container {
+	padding: 0.5em 0;
+}
+
+.crumbs-bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0;
+	font-size: var(--font-ui-small);
+	line-height: 1.4;
+}
+
+.crumbs-segment {
+	display: inline-flex;
+	align-items: center;
+	padding: 2px 4px;
+	border-radius: var(--radius-s);
+}
+
+.crumbs-segment-name {
+	color: var(--text-accent);
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.crumbs-segment-name:hover {
+	color: var(--text-accent-hover);
+	text-decoration: underline;
+}
+
+.crumbs-segment-name.is-current {
+	color: var(--text-normal);
+	font-weight: var(--font-semibold);
+	cursor: default;
+	text-decoration: none;
+}
+
+.crumbs-segment-name.is-current:hover {
+	text-decoration: none;
+}
+
+.crumbs-segment-name.is-missing {
+	font-style: italic;
+	color: var(--text-muted);
+}
+
+.crumbs-chevron.clickable-icon {
+	--icon-size: 14px;
+	--icon-stroke: 2px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 1px;
+	padding: 2px;
+	height: auto;
+	width: auto;
+	color: var(--text-faint);
+	background: transparent;
+	border-radius: var(--radius-s);
+	box-shadow: none;
+}
+
+.crumbs-chevron.clickable-icon:hover,
+.crumbs-chevron.clickable-icon:focus-visible {
+	color: var(--text-normal);
+	background-color: var(--background-modifier-hover);
+}
+
+.crumbs-separator {
+	color: var(--text-faint);
+	padding: 0 4px;
+	user-select: none;
+}
+
+.crumbs-children {
+	display: inline-flex;
+	align-items: center;
+	padding: 2px 4px;
+	border-radius: var(--radius-s);
+}
+
+.crumbs-menu-item-missing-title {
+	font-style: italic;
+	color: var(--text-muted);
+}

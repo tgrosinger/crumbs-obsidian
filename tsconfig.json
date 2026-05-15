@@ -1,21 +1,21 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
-
   "compilerOptions": {
     "strict": true,
     "strictPropertyInitialization": false,
-    "types": ["node", "jest", "svelte"],
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "types": ["node", "jest"],
     "baseUrl": ".",
     "inlineSources": true,
+    "sourceMap": true,
     "module": "ESNext",
     "target": "ES6",
     "allowJs": true,
-    "noImplicitAny": true,
     "moduleResolution": "node",
     "importHelpers": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-	"strictNullChecks": true,
     "lib": [
       "DOM",
       "ES5",

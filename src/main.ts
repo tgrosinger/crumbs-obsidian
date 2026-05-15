@@ -57,7 +57,7 @@ const drawTrail = async (plugin: CrumbsPlugin): Promise<void> => {
 	const allFiles = plugin.app.vault.getMarkdownFiles();
 
 	const trailDiv = createDiv({ cls: breadcrumbClass });
-	populateCrumbsContainer(trailDiv, file, allFiles);
+	populateCrumbsContainer(trailDiv, file, allFiles, plugin.app);
 
 	if (mode === 'preview') {
 		view.querySelector('div.markdown-preview-sizer')?.before(trailDiv);

@@ -146,6 +146,10 @@ export default tseslint.config(
 				...globals.jest,
 			},
 		},
+		rules: {
+			'@typescript-eslint/no-non-null-assertion': 'off',
+			'obsidianmd/no-tfile-tfolder-cast': 'off',
+		},
 	},
 	globalIgnores([
 		'node_modules',
@@ -156,6 +160,5 @@ export default tseslint.config(
 		'version-bump.mjs',
 		'versions.json',
 		'main.js',
-		'src/**/*.svelte',
 	]),
 );

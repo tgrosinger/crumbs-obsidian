@@ -19,28 +19,20 @@
 		"@types/jest": "^30.0.0",
 		"@types/node": "^24.12.4",
 		"esbuild": "0.28.0",
-		"esbuild-svelte": "^0.9.5",
 		"eslint": "^9.39.4",
 		"eslint-plugin-obsidianmd": "^0.1.9",
 		"globals": "^17.6.0",
 		"jest": "^30.4.2",
 		"obsidian": "1.12.3",
-		"svelte-check": "^4.4.8",
-		"svelte-preprocess": "^6.0.3",
 		"ts-jest": "^29",
 		"tslib": "2.8.1",
 		"typescript": "5.9.3",
 		"typescript-eslint": "^8.59.3"
 	},
-	"dependencies": {
-		"@tsconfig/svelte": "^5.0.8",
-		"obsidian-community-lib": "^2.0.2",
-		"svelte": "^5.55.5"
-	},
+	"dependencies": {},
 	"pnpm": {
 		"onlyBuiltDependencies": [
-			"esbuild",
-			"svelte-preprocess"
+			"esbuild"
 		],
 		"ignoredBuiltDependencies": [
 			"core-js",

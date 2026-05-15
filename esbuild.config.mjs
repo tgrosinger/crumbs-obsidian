@@ -1,8 +1,6 @@
 import esbuild from "esbuild";
 import process from "process";
 import { builtinModules } from "node:module";
-import sveltePlugin from "esbuild-svelte";
-import sveltePreprocess from "svelte-preprocess";
 
 const banner =
 `/*
@@ -18,7 +16,6 @@ const context = await esbuild.context({
 		js: banner,
 	},
 	entryPoints: ["src/main.ts"],
-	mainFields: ["svelte", "browser", "module", "main"],
 	bundle: true,
 	external: [
 		"obsidian",
@@ -37,12 +34,6 @@ const context = await esbuild.context({
 		...builtinModules,
 	],
 	format: "cjs",
-	plugins: [
-		sveltePlugin({
-			compilerOptions: { css: "injected" },
-			preprocess: sveltePreprocess(),
-		}),
-	],
 	target: "es2018",
 	logLevel: "info",
 	sourcemap: prod ? false : "inline",
